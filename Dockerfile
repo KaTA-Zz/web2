@@ -1,14 +1,14 @@
-# Dùng image Tomcat chính thức
-FROM tomcat:9.0-jdk17-temurin
+# Sử dụng Tomcat với JDK 17
+FROM tomcat:9.0-jdk17
 
-# Xóa default app ROOT
+# Xóa webapps mặc định nếu muốn
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy code webapp (giả sử bạn build ra file .war)
-COPY web/ /usr/local/tomcat/webapps/ROOT/
+# Copy file WAR từ target vào Tomcat (ROOT.war để chạy trên /)
+COPY dist/ch04_ex1_survey_sol.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose port 8080
+# Expose port cho Render
 EXPOSE 8080
 
-# Chạy Tomcat
+# Lệnh chạy Tomcat
 CMD ["catalina.sh", "run"]
